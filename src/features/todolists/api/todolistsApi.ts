@@ -43,4 +43,4 @@ export const todolistsApi = createApi({
 //   },
 // }
 
- export const {useFetchTodolistsQuery} = todolistsApi
+ export const {useFetchTodolistsQuery, useLazyFetchTodolistsQuery} = todolistsApi
