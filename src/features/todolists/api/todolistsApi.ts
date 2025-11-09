@@ -8,6 +8,7 @@ import {DomainTodolist} from "@/features/todolists/model/todolists-slice.ts";
 
 export const todolistsApi = createApi({
   reducerPath: "todolistsApi",
+  tagTypes: ['Todolist'],
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     headers: {
@@ -24,7 +25,8 @@ export const todolistsApi = createApi({
         return todolists.map ((tl) => {
           return {...tl, filter: 'all', entityStatus: 'idle'}
         })
-      }
+      },
+      providesTags: ['Todolist']
     }),
 
     createTodolists: builder.mutation<BaseResponse<{item: Todolist}>, string> ({
@@ -34,7 +36,8 @@ export const todolistsApi = createApi({
           url: '/todo-lists',
           body: {title}
         }
-      }
+      },
+      invalidatesTags: ['Todolist']
     }),
 
    deleteTodolists: builder.mutation<BaseResponse, string> ({
@@ -43,7 +46,8 @@ export const todolistsApi = createApi({
           method: 'delete',
           url: `/todo-lists/${id}`,
         }
-      }
+      },
+     invalidatesTags: ['Todolist']
     }),
 
     changeTodolists: builder.mutation<BaseResponse, {id: string, title: string}> ({
@@ -53,7 +57,8 @@ export const todolistsApi = createApi({
           url: `/todo-lists/${id}`,
           body: {title}
         }
-      }
+      },
+      invalidatesTags: ['Todolist']
     }),
 
   }),

@@ -12,7 +12,7 @@ export const Todolists = () => {
   //   dispatch(fetchTodolistsTC())
   // }, [])
 
-  const {data} = useFetchTodolistsQuery()
+  const {data, refetch} = useFetchTodolistsQuery()
 
   //console.log(data)
   // const [trigger, {data}] = useLazyFetchTodolistsQuery()
@@ -20,6 +20,7 @@ export const Todolists = () => {
 
   return (
     <>
+      {/*<button onClick={refetch}>actual</button>*/}
       {/*<button onClick={fetchTodosHandler}>get todos</button>*/}
       {data?.map((todolist: any) => (
         <Grid key={todolist.id}>
