@@ -13,6 +13,7 @@ import LinearProgress from "@mui/material/LinearProgress"
 import {useLogoutMutation} from "@/features/auth/api/authApi.ts";
 import {ResultCode} from "@/common/enums";
 import {AUTH_TOKEN} from "@/common/constants";
+import {baseApi} from "@/app/baseApi.ts";
 
 export const Header = () => {
     const isLoggedIn = useAppSelector (selectIsLoggedIn)
@@ -33,10 +34,12 @@ export const Header = () => {
         // dispatch (logoutTC ())
         logoutMutation().unwrap().then((res) => {
             if(res.resultCode === ResultCode.Success){
-                localStorage.remвoveItem(AUTH_TOKEN)
+                localStorage.removeItem(AUTH_TOKEN)
                 dispatch(setIsLoggedIn({isLoggedIn: false}))
+                dispatch(baseApi.util.resetApiState())
             }
         })
+
     }
 
     return (
