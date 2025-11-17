@@ -1,8 +1,7 @@
-import type {Todolist} from "./todolistsApi.types"
-
+import type {Todolist} from "./todolistsApi.types";
 import {BaseResponse} from "@/common/types";
-import {DomainTodolist} from "@/features/todolists/model/todolists-slice.ts";
 import {baseApi} from "@/app/baseApi.ts";
+import {DomainTodolist} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx";
 
 
 export const todolistsApi = baseApi.injectEndpoints({

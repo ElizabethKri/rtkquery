@@ -1,18 +1,33 @@
-import { TaskStatus } from "@/common/enums"
-import { useGetTasksQuery } from "@/features/todolists/api/tasksApi"
-import type { DomainTodolist } from "@/features/todolists/model/todolists-slice"
+import {TaskStatus} from "@/common/enums"
+import {useGetTasksQuery} from "@/features/todolists/api/tasksApi"
 import List from "@mui/material/List"
-import { TaskItem } from "./TaskItem/TaskItem"
+import {TaskItem} from "./TaskItem/TaskItem"
 import {TasksSkeleton} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksSkeleton/TasksSkeleton.tsx";
+import {RequestStatus} from "@/common/types";
+import {Todolist} from "@/features/todolists/api/todolistsApi.types.ts";
 
 type Props = {
   todolist: DomainTodolist
 }
 
+export type DomainTodolist = Todolist & {
+  filter: FilterValues
+  entityStatus: RequestStatus
+}
+
+export type FilterValues = "all" | "active" | "completed"
+
+// type GetTaskError = {
+//   data: {
+//     message: string
+//   }
+// }
+
 export const Tasks = ({ todolist }: Props) => {
   const { id, filter } = todolist
+  //const dispatch = useDispatch()
 
-  const { data, isLoading } = useGetTasksQuery(id)
+  const { data, isLoading} = useGetTasksQuery(id)
 
   let filteredTasks = data?.items
   if (filter === "active") {
@@ -21,6 +36,15 @@ export const Tasks = ({ todolist }: Props) => {
   if (filter === "completed") {
     filteredTasks = filteredTasks?.filter((task) => task.status === TaskStatus.Completed)
   }
+
+  // if(errData){
+  //   if('status' in errData){
+  //     const errMsg = 'error' in errData ? errData.error : JSON.stringify(errData.data)
+  //     dispatch(setAppErrorAC({ error: errMsg}))
+  //   } else {
+  //     dispatch(setAppErrorAC({ error: errData.message || 'Something went wrong'}))
+  //   }
+  //}
 
   if(isLoading){
     return <TasksSkeleton/>
