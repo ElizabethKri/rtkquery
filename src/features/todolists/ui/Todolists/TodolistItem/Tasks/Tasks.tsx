@@ -5,6 +5,10 @@ import {TaskItem} from "./TaskItem/TaskItem"
 import {TasksSkeleton} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksSkeleton/TasksSkeleton.tsx";
 import {RequestStatus} from "@/common/types";
 import {Todolist} from "@/features/todolists/api/todolistsApi.types.ts";
+import {useState} from "react";
+import {
+  TasksPagination
+} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx";
 
 type Props = {
   todolist: DomainTodolist
@@ -27,7 +31,9 @@ export const Tasks = ({ todolist }: Props) => {
   const { id, filter } = todolist
   //const dispatch = useDispatch()
 
-  const { data, isLoading} = useGetTasksQuery(id)
+  const [page, setPage] = useState(1)
+
+  const { data, isLoading} = useGetTasksQuery({id, params: {page}})
 
   let filteredTasks = data?.items
   if (filter === "active") {
@@ -55,7 +61,12 @@ export const Tasks = ({ todolist }: Props) => {
       {filteredTasks?.length === 0 ? (
         <p>Тасок нет</p>
       ) : (
-        <List>{filteredTasks?.map((task) => <TaskItem key={task.id} task={task} todolist={todolist} />)}</List>
+          <div>
+            <List>
+              {filteredTasks?.map((task) => <TaskItem key={task.id} task={task} todolist={todolist} />)}
+            </List>
+            <TasksPagination totalCount={data?.totalCount || 0} page={page} setPage={setPage}/>
+          </div>
       )}
     </>
   )
