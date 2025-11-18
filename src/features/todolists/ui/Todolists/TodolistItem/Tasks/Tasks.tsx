@@ -33,7 +33,7 @@ export const Tasks = ({ todolist }: Props) => {
 
   const [page, setPage] = useState(1)
 
-  const { data, isLoading} = useGetTasksQuery({id, params: {page}})
+  const { data, isLoading} = useGetTasksQuery({id, params: {page}}, {refetchOnFocus: true})
 
   let filteredTasks = data?.items
   if (filter === "active") {

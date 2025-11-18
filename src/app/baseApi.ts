@@ -3,6 +3,10 @@ import {AUTH_TOKEN} from "@/common/constants";
 import {handleError} from "@/common/utils/handleError.ts";
 
 export const baseApi = createApi({
+    reducerPath: "baseApi",
+    keepUnusedDataFor: 10,
+    tagTypes: ['Todolist', 'Task'],
+    refetchOnFocus: true,
     baseQuery: async(args, api, extraOptions) => {
 
         //await new Promise(res => setTimeout(res, 2000))
@@ -85,8 +89,6 @@ export const baseApi = createApi({
 
 
     },
-    reducerPath: "baseApi",
-    keepUnusedDataFor: 10,
-    tagTypes: ['Todolist', 'Task'],
+
     endpoints:() => ({})
 })
