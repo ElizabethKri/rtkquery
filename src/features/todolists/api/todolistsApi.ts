@@ -35,6 +35,24 @@ export const todolistsApi = baseApi.injectEndpoints({
           url: `/todo-lists/${id}`,
         }
       },
+     onQueryStarted: async (id, {dispatch, queryFulfilled}) => {
+       const patchResult = dispatch(
+           todolistsApi.util.updateQueryData('fetchTodolists', undefined, (state) => {
+             // const todolist = todolists.find((todolist) => todolist.id === id)
+             // if(todolist){
+             //   todolist.entityStatus = 'loading'
+             // }
+             const todolist = state.findIndex(todo => todo.id === id)
+             if(todolist !== -1) state.splice(todolist, 1)
+           })
+       )
+       try{
+         await queryFulfilled
+       } catch {
+         patchResult.undo()
+       }
+
+     },
      invalidatesTags: ['Todolist']
     }),
 
