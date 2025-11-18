@@ -86,6 +86,7 @@ export const baseApi = createApi({
 
     },
     reducerPath: "baseApi",
+    keepUnusedDataFor: 10,
     tagTypes: ['Todolist', 'Task'],
     endpoints:() => ({})
 })
