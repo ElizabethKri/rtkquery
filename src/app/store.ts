@@ -2,13 +2,14 @@ import {configureStore} from "@reduxjs/toolkit"
 import {appReducer, appSlice} from "./app-slice.ts"
 import {setupListeners} from "@reduxjs/toolkit/query";
 import {baseApi} from "@/app/baseApi.ts";
+import  {errorMiddleware} from './errorMiddleware.ts'
 
 export const store = configureStore({
   reducer: {
     [appSlice.name]: appReducer,
     [baseApi.reducerPath]: baseApi.reducer
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware)
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware, errorMiddleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>
