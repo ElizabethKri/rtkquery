@@ -37,7 +37,6 @@ export const Login = () => {
     defaultValues: { email: "", password: "", rememberMe: false },
   })
 
-  console.log('123')
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
     // dispatch(loginTC(data))
