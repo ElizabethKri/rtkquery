@@ -1,4 +1,4 @@
-import {selectThemeMode, setAppStatusAC, setIsLoggedIn} from "@/app/app-slice"
+import {selectThemeMode, setIsLoggedIn} from "@/app/app-slice"
 import {useAppDispatch, useAppSelector} from "@/common/hooks"
 import {getTheme} from "@/common/theme"
 import {type LoginInputs, loginSchema} from "@/features/auth/lib/schemas"
@@ -36,6 +36,8 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "", rememberMe: false },
   })
+
+  console.log('123')
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
     // dispatch(loginTC(data))

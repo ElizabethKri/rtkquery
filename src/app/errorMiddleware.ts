@@ -1,5 +1,6 @@
 import {toast} from "react-toastify";
 
+// @ts-ignore
 export const errorMiddleware = store => next => action => {
     if (action.type.endsWith('/rejected')) {
         // Обработка ошибки
