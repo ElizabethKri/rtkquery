@@ -10,6 +10,7 @@ import {ThemeProvider} from "@mui/material/styles"
 import {useEffect} from "react"
 import styles from "./App.module.css"
 import {useMeQuery} from "@/features/auth/api/authApi.ts";
+import {ResultCode} from "@/common/enums";
 
 export const App = () => {
   // const [isInitialized, setIsInitialized] = useState(false)
@@ -19,17 +20,17 @@ export const App = () => {
 
   const theme = getTheme(themeMode)
 
-  const {isLoading} = useMeQuery()
+  const {data, isLoading} = useMeQuery()
 
   useEffect(() => {
     if(isLoading) return
     // dispatch(initializeAppTC()).finally(() => {
     //   setIsInitialized(true)
     // })
-    dispatch(setIsLoggedIn({isLoggedIn: true}))
-    // if (data?.resultCode === ResultCode.Success){
-    //   dispatch(setIsLoggedIn({isLoggedIn: true}))
-    // }
+    // dispatch(setIsLoggedIn({isLoggedIn: true}))
+    if (data?.resultCode === ResultCode.Success){
+      dispatch(setIsLoggedIn({isLoggedIn: true}))
+    }
   }, [isLoading])
 
   if (isLoading) {
